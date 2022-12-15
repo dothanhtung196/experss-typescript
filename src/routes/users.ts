@@ -1,11 +1,11 @@
-import express, {Request, Response, NextFunction} from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import { AppDataSource } from '../database/data-source';
 import { User } from '../database/entities/User';
 
 var router = express.Router();
 
 /* GET users listing. */
-router.get('/', async function(req: Request, res: Response, next: NextFunction) {
+router.get('/', async function (req: Request, res: Response, next: NextFunction) {
   const userRepository = AppDataSource.getRepository(User);
 
   // let user = new User();

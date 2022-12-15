@@ -1,37 +1,15 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 @Entity()
-export class User {
-
+export class RolePermission {
     @PrimaryGeneratedColumn()
     id!: number
 
     @Column()
-    username!: string
+    roleId!: number
 
     @Column()
-    password!: string
-
-    @Column()
-    fullName!: string
-
-    @Column()
-    phone!: string
-
-    @Column()
-    email!: string
-
-    @Column()
-    address!: string
-
-    @Column()
-    lastLoginIp!: string
-
-    @Column()
-    statusId!: number
-
-    @Column()
-    deleteFlag!: boolean
+    permissionId!: number
 
     @Column()
     createdAt!: Date
