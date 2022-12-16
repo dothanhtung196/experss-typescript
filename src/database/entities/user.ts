@@ -1,4 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import moment from "moment";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from "typeorm";
+import { Role } from "./role";
 
 @Entity()
 export class User {
@@ -28,19 +30,23 @@ export class User {
     lastLoginIp!: string
 
     @Column()
-    statusId!: number
+    lastLoginTime!: Date
 
-    @Column()
+    @Column({
+        default: false
+    })
     deleteFlag!: boolean
 
-    @Column()
+    @Column({
+        default: moment().format("YYYY-MM-DD HH:mm:ss")
+    })
     createdAt!: Date
 
     @Column()
     createdBy!: number
 
     @Column({
-        nullable: true
+        default: moment().format("YYYY-MM-DD HH:mm:ss")
     })
     updatedAt!: Date
 
@@ -48,4 +54,7 @@ export class User {
         nullable: true
     })
     updatedBy!: number
+
+    @OneToMany(() => Role, (role) => role.users)
+    role!: Role
 }

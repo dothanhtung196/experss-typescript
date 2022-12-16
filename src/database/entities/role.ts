@@ -1,4 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, ManyToMany, JoinTable, OneToMany } from "typeorm";
+import { Menu } from "./menu";
+import { Permission } from "./permission";
+import { User } from "./User";
 
 @Entity()
 export class Role {
@@ -6,15 +9,14 @@ export class Role {
     id!: number
 
     @Column()
-    userId!: number
-
-    @Column()
     code!: string
 
     @Column()
     name!: string
 
-    @Column()
+    @Column({
+        default: false
+    })
     deleteFlag!: boolean
 
     @Column()
@@ -32,4 +34,15 @@ export class Role {
         nullable: true
     })
     updatedBy!: number
+
+    @ManyToOne(() => User, (user) => user.role)
+    users!: User[];
+
+    @ManyToMany(() => Permission, (permission) => permission.roles)
+    @JoinTable({name: "Role_Permission"})
+    permissions!: Permission[]
+
+    @ManyToMany(() => Menu, (menu) => menu.roles)
+    @JoinTable({name: "Role_Menu"})
+    menus!: Menu[]
 }

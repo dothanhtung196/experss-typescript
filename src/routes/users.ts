@@ -1,25 +1,14 @@
-import express, { Request, Response, NextFunction } from 'express';
-import { AppDataSource } from '../database/data-source';
-import { User } from '../database/entities/User';
+import express, { Request, Response, NextFunction } from "express";
+import { UserController } from "../controllers/user-controller";
 
 var router = express.Router();
+let userController = new UserController();
 
 /* GET users listing. */
-router.get('/', async function (req: Request, res: Response, next: NextFunction) {
-  const userRepository = AppDataSource.getRepository(User);
+router.get("/", (req: Request, res: Response, next: NextFunction) => userController.getAll(req, res, next));
+router.get("/:id", (req: Request, res: Response, next: NextFunction) => userController.getById(req, res, next))
+router.post("/", (req: Request, res: Response, next: NextFunction) => userController.add(req, res, next));
+router.put("/:id", (req: Request, res: Response, next: NextFunction) => userController.edit(req, res, next));
+router.delete("/:id", (req: Request, res: Response, next: NextFunction) => userController.delete(req, res, next));
 
-  // let user = new User();
-  // user.username = "administrator";
-  // user.fullName = "Do thanh tung";
-  // user.address = "Tp HCM";
-  // user.createdUser = 0;
-  // user.createdTime = new Date();
-  // user.updatedUser = 0;
-  // user.updatedTime = new Date();
-
-  var result = await userRepository.find();
-  // res.send('respond with a resource 123');
-  res.json(result);
-});
-
-export { router as usersRouter }
+export { router as usersRouter };

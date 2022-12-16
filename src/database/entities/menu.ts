@@ -1,8 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinColumn, JoinTable, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, ManyToMany, JoinTable, OneToMany } from "typeorm";
 import { Role } from "./role";
 
 @Entity()
-export class Permission {
+export class Menu {
     @PrimaryGeneratedColumn()
     id!: number
 
@@ -33,6 +33,6 @@ export class Permission {
     })
     updatedBy!: number
 
-    @ManyToMany(() => Role, (role) => role.permissions)
+    @ManyToMany(() => Role, (role) => role.menus)
     roles!: Role[]
 }

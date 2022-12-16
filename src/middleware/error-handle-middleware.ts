@@ -1,5 +1,6 @@
 import createError from "http-errors";
 import { Request, Response, NextFunction } from "express";
+import { ResponseModel } from "../models/response-model";
 
 class ErrorHandleMiddleware {
     handleNotFound(req: Request, res: Response, next: NextFunction) {
@@ -14,11 +15,7 @@ class ErrorHandleMiddleware {
         // render the error page
         res.status(err.status || 500);
         // res.render("error");
-        res.json({
-            // status: err.status || 500,
-            isSuccess: false,
-            message: err.message
-        });
+        res.json(new ResponseModel(null, err.message, true, err.status))
     }
 }
 

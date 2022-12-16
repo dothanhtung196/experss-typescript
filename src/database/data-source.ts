@@ -4,7 +4,7 @@ import * as dotenv from "dotenv";
 import { User } from "./entities/User";
 import { Role } from "./entities/role";
 import { Permission } from "./entities/permission";
-import { RolePermission } from "./entities/role-permission";
+import { Menu } from "./entities/menu";
 
 dotenv.config();
 
@@ -17,7 +17,7 @@ export const AppDataSource = new DataSource({
     database: process.env.DATABASE_NAME,
     synchronize: true,
     logging: false,
-    entities: [User, Role, Permission, RolePermission],
+    entities: [User, Role, Permission, Menu],
     migrations: [],
     subscribers: [],
 });

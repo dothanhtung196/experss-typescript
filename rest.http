@@ -1,0 +1,101 @@
+### Global parameter
+@baseUrl = http://localhost:3000
+@accessToken = Bearer {{Login.response.body.data.accessToken}}
+@refreshToken = {{Login.response.body.data.refreshToken}}
+@accessTokenReNew = {{RefreshToken.response.body.data.accessToken}}
+@refreshTokenReNew = {{RefreshToken.response.body.data.refreshToken}}
+
+#################################################################
+
+@authRoute = authentications
+
+###
+# @name Login
+POST {{baseUrl}}/{{authRoute}}/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "administrator",
+    "password": "admin@123"
+}
+
+###
+# @name RefreshToken
+POST {{baseUrl}}/{{authRoute}}/refresh-token HTTP/1.1
+Content-Type: application/json
+
+{
+    "refreshToken": "{{refreshToken}}"
+}
+
+###
+# @name Logout
+POST {{baseUrl}}/{{authRoute}}/logout HTTP/1.1
+Authorization: {{accessToken}}
+Content-Type: application/json
+
+{
+    "refreshToken": "{{refreshToken}}"
+}
+
+###################################################################
+@userRoute = users
+
+###
+# @name GetUserList
+GET {{baseUrl}}/{{userRoute}} HTTP/1.1
+Authorization: {{accessToken}}
+
+###
+# @name GetUserById
+GET {{baseUrl}}/{{userRoute}}/1 HTTP/1.1
+Authorization: {{accessToken}}
+
+###
+# @name AddUser
+POST {{baseUrl}}/{{userRoute}} HTTP/1.1
+Authorization: {{accessToken}}
+Content-Type: application/json
+
+{
+    "username": "administrator",
+    "password": "admin@123",
+    "fullName": "do thanh tung",
+    "phone": "0987654321",
+    "email": "tungdt@sothink.jp",
+    "address": "tp hcm",
+    "lastLoginIp": "123",
+    "lastLoginTime": "2022-12-16 15:00:00",
+    "deleteFlag": false,
+    "createdAt": "2022-12-16 15:00:00",
+    "createdBy": 0,
+    "updatedAt": "2022-12-16 15:00:00",
+    "updatedBy": 0
+}
+
+###
+# @name EditUser
+PUT {{baseUrl}}/{{userRoute}}/4 HTTP/1.
+Authorization: {{accessToken}}
+Content-Type: application/json
+
+{
+    "username": "administrator",
+    "password": "123456",
+    "fullName": "do thanh tung",
+    "phone": "0987654321",
+    "email": "tungdt@sothink.jp",
+    "address": "tp hcm",
+    "lastLoginIp": "123",
+    "lastLoginTime": "2022-12-16 15:00:00",
+    "deleteFlag": false,
+    "createdAt": "2022-12-16 15:00:00",
+    "createdBy": 0,
+    "updatedAt": "2022-12-16 15:00:00",
+    "updatedBy": 0
+}
+
+###
+# @name DeleteUser
+DELETE {{baseUrl}}/{{userRoute}}/2 HTTP/1.1
+Authorization: {{accessToken}}
