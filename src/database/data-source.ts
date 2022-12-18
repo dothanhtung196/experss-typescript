@@ -21,9 +21,3 @@ export const AppDataSource = new DataSource({
     migrations: [],
     subscribers: [],
 });
-
-AppDataSource.initialize()
-    .then(() => {
-        console.log("Database connect success!");
-    })
-    .catch((error) => console.log(error));

@@ -1,14 +1,14 @@
 import { DeleteResult, InsertResult, UpdateResult } from "typeorm";
 import { User } from "../database/entities/User";
-import { StringHelper } from "../helpers/string-helper";
+import { StringCipher } from "../core/common/string-cipher";
 import { UserRepository } from "../repositories/user-repository";
 
 export class UserService {
     userRepository: UserRepository;
-    stringHelper: StringHelper;
+    stringCipher: StringCipher;
     constructor() {
         this.userRepository = new UserRepository();
-        this.stringHelper = new StringHelper();
+        this.stringCipher = new StringCipher();
     }
 
     async getAll(): Promise<User[]> {
@@ -24,7 +24,7 @@ export class UserService {
     }
 
     async add(user: User): Promise<InsertResult> {
-        user.password = await this.stringHelper.hashPassword(user.password);
+        user.password = await this.stringCipher.hashPassword(user.password);
         return await this.userRepository.add(user);
     }
 

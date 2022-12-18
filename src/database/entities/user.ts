@@ -55,6 +55,6 @@ export class User {
     })
     updatedBy!: number
 
-    @OneToMany(() => Role, (role) => role.users)
+    @ManyToOne(() => Role, (role) => role.users)
     role!: Role
 }

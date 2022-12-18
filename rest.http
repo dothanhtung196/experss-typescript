@@ -99,3 +99,6 @@ Content-Type: application/json
 # @name DeleteUser
 DELETE {{baseUrl}}/{{userRoute}}/2 HTTP/1.1
 Authorization: {{accessToken}}
+
+###
+GET  {{baseUrl}}/aaa HTTP/1.1

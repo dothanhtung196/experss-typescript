@@ -1,9 +1,11 @@
 import { Request, Response, NextFunction } from "express";
 import createHttpError from "http-errors";
+import { Controller, Delete, Get, Post, Put } from "../core/decorators/route-decorator";
 import { User } from "../database/entities/User";
 import { ResponseModel } from "../models/response-model";
 import { UserService } from "../services/user-service";
 
+@Controller("users")
 export class UserController {
     userService: UserService;
 
@@ -11,6 +13,7 @@ export class UserController {
         this.userService = new UserService();
     }
 
+    @Get("")
     async getAll(req: Request, res: Response, next: NextFunction) {
         try {
             let users = await this.userService.getAll();
@@ -20,11 +23,12 @@ export class UserController {
         }
     }
 
+    @Get(":id")
     async getById(req: Request, res: Response, next: NextFunction) {
         try {
-            let {id} = req.params;
+            let { id } = req.params;
             let user = await this.userService.getById(Number(id));
-            if(!user) throw createHttpError.NotFound("User does not exists in database.");
+            if (!user) throw createHttpError.NotFound("User does not exists in database.");
 
             res.json(new ResponseModel(user));
         } catch (error) {
@@ -32,6 +36,7 @@ export class UserController {
         }
     }
 
+    @Post("")
     async add(req: Request, res: Response, next: NextFunction) {
         try {
             let user: User = req.body;
@@ -42,6 +47,7 @@ export class UserController {
         }
     }
 
+    @Put(":id")
     async edit(req: Request, res: Response, next: NextFunction) {
         try {
             let { id } = req.params;
@@ -54,9 +60,10 @@ export class UserController {
         }
     }
 
-    async delete(req: Request, res: Response, next: NextFunction){
+    @Delete(":id")
+    async delete(req: Request, res: Response, next: NextFunction) {
         try {
-            let {id} = req.params;
+            let { id } = req.params;
             let result = await this.userService.delete(Number(id));
             res.json(new ResponseModel(result));
         } catch (error) {

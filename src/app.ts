@@ -2,14 +2,18 @@ import express from "express";
 import path from "path";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
+import 'reflect-metadata';
+import dotenv from "dotenv";
+import { handleNotFound, handleError } from "./middlewares/error-handle-middleware";
 
-import { errorHandleMiddleware } from "./middleware/error-handle-middleware";
-
-import { indexRouter } from "./routes/index";
-import { usersRouter } from "./routes/users";
-import { authenticationRouter } from "./routes/authentication-route";
+import { AppDataSource } from "./database/data-source";
+import { UserController } from "./controllers/user-controller";
+import { HomeController } from "./controllers/home-controller";
+import { AuthenticationController } from "./controllers/authentication-controller";
+import { RouteMap } from "./core/common/route-map";
 
 var app = express();
+dotenv.config();
 
 // view engine setup
 app.set("views", path.join(__dirname, "../views"));
@@ -21,13 +25,21 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "../public")));
 
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
-app.use("/authentications", authenticationRouter);
 
-// catch 404 and forward to error handler
-app.use(errorHandleMiddleware.handleNotFound);
+// initial database
+AppDataSource.initialize()
+    .then(() => {
+        console.log("Database connect success!");
+    })
+    .catch((error) => console.log(error));
 
-// error handler
-app.use(errorHandleMiddleware.handleError);
+RouteMap([
+    HomeController,
+    UserController,
+    AuthenticationController
+])
+
+app.use(handleNotFound);
+app.use(handleError);
+
 export { app };

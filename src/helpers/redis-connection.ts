@@ -59,7 +59,7 @@ export class RedisConnection {
         }
     }
 
-    async deleteValue(key: string){
+    async deleteValue(key: string) {
         try {
             await this.connect();
             await this.client.del(key);

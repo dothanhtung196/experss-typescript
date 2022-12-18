@@ -7,10 +7,8 @@
 import { app } from "../app";
 import debug from "debug";
 import http from "http";
-import * as dotenv from 'dotenv';
 
 debug("express-api-typescript:server");
-dotenv.config();
 /**
  * Get port from environment and store in Express.
  */

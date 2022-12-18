@@ -35,14 +35,14 @@ export class Role {
     })
     updatedBy!: number
 
-    @ManyToOne(() => User, (user) => user.role)
+    @OneToMany(() => User, (user) => user.role)
     users!: User[];
 
     @ManyToMany(() => Permission, (permission) => permission.roles)
-    @JoinTable({name: "Role_Permission"})
+    @JoinTable({ name: "Role_Permission" })
     permissions!: Permission[]
 
     @ManyToMany(() => Menu, (menu) => menu.roles)
-    @JoinTable({name: "Role_Menu"})
+    @JoinTable({ name: "Role_Menu" })
     menus!: Menu[]
 }

@@ -1,12 +1,10 @@
 import jwt, { JwtPayload, SignOptions } from "jsonwebtoken";
-import dotenv from 'dotenv';
 
 export class JwtHelper {
     accessTokenSecret: string;
     refreshTokenSecret: string
 
-    constructor(){
-        dotenv.config();
+    constructor() {
         this.accessTokenSecret = process.env.ACCESS_TOKEN_SECRET_KEY || "";
         this.refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET_KEY || "";
     }
@@ -26,7 +24,7 @@ export class JwtHelper {
         }
     }
 
-    verifyAccessToken(token: string){
+    verifyAccessToken(token: string): string | jwt.JwtPayload {
         try {
             let result = jwt.verify(token, this.accessTokenSecret);
             return result;
@@ -50,7 +48,7 @@ export class JwtHelper {
         }
     }
 
-    verifyRefreshToken(token: string){
+    verifyRefreshToken(token: string): string | jwt.JwtPayload {
         try {
             let result = jwt.verify(token, this.refreshTokenSecret);
             return result;
