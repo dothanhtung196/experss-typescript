@@ -1,5 +1,4 @@
-import moment from "moment";
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, CreateDateColumn, UpdateDateColumn, BeforeUpdate, BeforeInsert, BeforeRemove } from "typeorm";
 import { Role } from "./role";
 
 @Entity()
@@ -37,23 +36,34 @@ export class User {
     })
     deleteFlag!: boolean
 
-    @Column({
-        default: moment().format("YYYY-MM-DD HH:mm:ss")
-    })
+    @CreateDateColumn()
     createdAt!: Date
 
     @Column()
     createdBy!: number
 
-    @Column({
-        default: moment().format("YYYY-MM-DD HH:mm:ss")
-    })
+    @UpdateDateColumn()
     updatedAt!: Date
 
     @Column({
         nullable: true
     })
     updatedBy!: number
+
+    @BeforeInsert()
+    public setCreatedAt() {
+        this.createdAt = new Date();
+    }
+
+    @BeforeUpdate()
+    public setUpdatedAt() {
+        this.updatedAt = new Date();
+    }
+
+    @BeforeRemove()
+    public setDeletedAt() {
+        this.updatedAt = new Date();
+    }
 
     @ManyToOne(() => Role, (role) => role.users)
     role!: Role

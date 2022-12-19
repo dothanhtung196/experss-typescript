@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, ManyToMany, JoinTable, OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, ManyToMany, JoinTable, OneToMany, BeforeInsert, BeforeUpdate, BeforeRemove } from "typeorm";
 import { Role } from "./role";
 
 @Entity()
@@ -32,6 +32,21 @@ export class Menu {
         nullable: true
     })
     updatedBy!: number
+
+    @BeforeInsert()
+    public setCreatedAt() {
+        this.createdAt = new Date();
+    }
+
+    @BeforeUpdate()
+    public setUpdatedAt() {
+        this.updatedAt = new Date();
+    }
+
+    @BeforeRemove()
+    public setDeletedAt() {
+        this.updatedAt = new Date();
+    }
 
     @ManyToMany(() => Role, (role) => role.menus)
     roles!: Role[]

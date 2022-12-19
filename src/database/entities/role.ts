@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, ManyToMany, JoinTable, OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, ManyToMany, JoinTable, OneToMany, BeforeInsert, BeforeUpdate, BeforeRemove } from "typeorm";
 import { Menu } from "./menu";
 import { Permission } from "./permission";
 import { User } from "./User";
@@ -35,14 +35,29 @@ export class Role {
     })
     updatedBy!: number
 
+    @BeforeInsert()
+    public setCreatedAt() {
+        this.createdAt = new Date();
+    }
+
+    @BeforeUpdate()
+    public setUpdatedAt() {
+        this.updatedAt = new Date();
+    }
+
+    @BeforeRemove()
+    public setDeletedAt() {
+        this.updatedAt = new Date();
+    }
+
     @OneToMany(() => User, (user) => user.role)
     users!: User[];
 
     @ManyToMany(() => Permission, (permission) => permission.roles)
-    @JoinTable({ name: "Role_Permission" })
+    @JoinTable({ name: "role_permission" })
     permissions!: Permission[]
 
     @ManyToMany(() => Menu, (menu) => menu.roles)
-    @JoinTable({ name: "Role_Menu" })
+    @JoinTable({ name: "role_menu" })
     menus!: Menu[]
 }

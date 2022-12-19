@@ -1,6 +1,6 @@
 import jwt, { JwtPayload, SignOptions } from "jsonwebtoken";
 
-export class JwtHelper {
+class JwtHelper {
     accessTokenSecret: string;
     refreshTokenSecret: string
 
@@ -57,3 +57,5 @@ export class JwtHelper {
         }
     }
 }
+
+export default new JwtHelper();
