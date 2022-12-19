@@ -5,7 +5,7 @@ import logger from "morgan";
 import 'reflect-metadata';
 import dotenv from "dotenv";
 
-import { AppDataSource } from "./database/data-source";
+import { AppDataSource, SeedData } from "./database/data-source";
 import { UserController } from "./controllers/user-controller";
 import { HomeController } from "./controllers/home-controller";
 import { AuthenticationController } from "./controllers/authentication-controller";
@@ -30,6 +30,8 @@ app.use(express.static(path.join(__dirname, "../public")));
 AppDataSource.initialize()
     .then(() => {
         console.log("Database connect success!");
+
+        SeedData();
     })
     .catch((error) => console.log(error));
 
