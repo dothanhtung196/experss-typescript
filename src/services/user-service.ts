@@ -1,38 +1,33 @@
 import { DeleteResult, InsertResult, UpdateResult } from "typeorm";
+import stringHelper from "../core/common/string-helper";
 import { User } from "../database/entities/User";
-import { StringCipher } from "../core/common/string-cipher";
-import { UserRepository } from "../repositories/user-repository";
+import userRepository from "../repositories/user-repository";
 
-export class UserService {
-    userRepository: UserRepository;
-    stringCipher: StringCipher;
-    constructor() {
-        this.userRepository = new UserRepository();
-        this.stringCipher = new StringCipher();
-    }
-
+class UserService {
     async getAll(): Promise<User[]> {
-        return await this.userRepository.getAll();
+        return await userRepository.getAll();
     }
 
     async getById(id: number): Promise<User | null> {
-        return await this.userRepository.getById(id);
+        return await userRepository.getById(id);
     }
 
     async getByUsername(username: string): Promise<User | null> {
-        return await this.userRepository.getByUsername(username);
+        return await userRepository.getByUsername(username);
     }
 
     async add(user: User): Promise<InsertResult> {
-        user.password = await this.stringCipher.hashPassword(user.password);
-        return await this.userRepository.add(user);
+        user.password = await stringHelper.hashPassword(user.password);
+        return await userRepository.add(user);
     }
 
     async edit(id: number, user: User): Promise<UpdateResult> {
-        return await this.userRepository.edit(id, user);
+        return await userRepository.edit(id, user);
     }
 
     async delete(id: number): Promise<DeleteResult> {
-        return await this.userRepository.delete(id);
+        return await userRepository.delete(id);
     }
 }
+
+export default new UserService();

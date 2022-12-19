@@ -2,7 +2,7 @@ import { DeleteResult, InsertResult, UpdateResult } from "typeorm";
 import { AppDataSource } from "../database/data-source";
 import { User } from "../database/entities/User";
 
-export class UserRepository {
+class UserRepository {
     async getAll(): Promise<User[]> {
         return await AppDataSource.createQueryBuilder().select("user").from(User, "user").getMany();
     }
@@ -27,3 +27,5 @@ export class UserRepository {
         return await AppDataSource.createQueryBuilder().delete().from(User).where("id = :id", { id: id }).execute();
     }
 }
+
+export default new UserRepository();

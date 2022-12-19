@@ -4,13 +4,13 @@ import cookieParser from "cookie-parser";
 import logger from "morgan";
 import 'reflect-metadata';
 import dotenv from "dotenv";
-import { handleNotFound, handleError } from "./middlewares/error-handle-middleware";
 
 import { AppDataSource } from "./database/data-source";
 import { UserController } from "./controllers/user-controller";
 import { HomeController } from "./controllers/home-controller";
 import { AuthenticationController } from "./controllers/authentication-controller";
-import { RouteMap } from "./core/common/route-map";
+import { RouteMap } from "./core/routes/route-map";
+import { HandleError, HandleNotFound } from "./core/exception/global-error-handle";
 
 var app = express();
 dotenv.config();
@@ -39,7 +39,7 @@ RouteMap([
     AuthenticationController
 ])
 
-app.use(handleNotFound);
-app.use(handleError);
+app.use(HandleNotFound);
+app.use(HandleError);
 
 export { app };

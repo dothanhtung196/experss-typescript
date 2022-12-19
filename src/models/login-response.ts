@@ -1,6 +1,6 @@
 import { User } from "../database/entities/User";
 
-export class UserModel {
+export class LoginResponse {
     constructor(user: User) {
         this.id = user.id;
         this.username = user.username;

@@ -1,6 +1,5 @@
 import fs from "fs";
 import path from "path";
-import _, { result } from "lodash";
 
 export const ControllerMap = () => {
     const basename = path.basename(__filename);
