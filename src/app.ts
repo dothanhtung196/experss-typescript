@@ -11,6 +11,7 @@ import { HomeController } from "./controllers/home-controller";
 import { AuthenticationController } from "./controllers/authentication-controller";
 import { RouteMap } from "./core/routes/route-map";
 import { HandleError, HandleNotFound } from "./core/exception/global-error-handle";
+import { User } from "./database/entities/User";
 
 var app = express();
 dotenv.config();
@@ -30,7 +31,6 @@ app.use(express.static(path.join(__dirname, "../public")));
 AppDataSource.initialize()
     .then(() => {
         console.log("Database connect success!");
-
         SeedData();
     })
     .catch((error) => console.log(error));

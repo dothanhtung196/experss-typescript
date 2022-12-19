@@ -1,5 +1,6 @@
 import { DeleteResult, InsertResult, UpdateResult } from "typeorm";
 import { AppDataSource } from "../database/data-source";
+import { Role } from "../database/entities/role";
 import { User } from "../database/entities/User";
 
 class UserRepository {
@@ -13,6 +14,10 @@ class UserRepository {
 
     async getByUsername(username: string): Promise<User | null> {
         return await AppDataSource.createQueryBuilder().select("user").from(User, "user").where("user.username = :username", { username: username }).getOne();
+    }
+
+    async getRoleOfUser(userId: number): Promise<User | null> {
+        return await AppDataSource.createQueryBuilder(User, "user").innerJoinAndSelect("user.role", "role").getOne();
     }
 
     async add(user: User): Promise<InsertResult> {

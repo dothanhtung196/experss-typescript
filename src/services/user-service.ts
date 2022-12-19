@@ -16,6 +16,10 @@ class UserService {
         return await userRepository.getByUsername(username);
     }
 
+    async getRoleOfUser(userId: number): Promise<User | null> {
+        return await userRepository.getRoleOfUser(userId);
+    }
+
     async add(user: User): Promise<InsertResult> {
         user.password = await stringHelper.hashPassword(user.password);
         return await userRepository.add(user);
