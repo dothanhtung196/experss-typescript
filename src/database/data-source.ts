@@ -7,6 +7,7 @@ import { Permission } from "./entities/permission";
 import { Menu } from "./entities/menu";
 import userSeed from "./seeds/user-seed";
 import roleSeed from "./seeds/role-seed";
+import { LogDatabase } from "../core/common/log-database";
 
 dotenv.config();
 
@@ -19,7 +20,7 @@ export const AppDataSource = new DataSource({
     database: process.env.DATABASE_NAME,
     synchronize: true,
     logging: true,
-    logger: "file",
+    logger: new LogDatabase(),
     entities: [User, Role, Permission, Menu],
     migrations: [],
     subscribers: [],

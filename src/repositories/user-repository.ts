@@ -24,20 +24,35 @@ class UserRepository {
             .getOne();
     }
 
-    async getUserWithRole(userId: number): Promise<User | null> {
-        return await AppDataSource.createQueryBuilder(User, "user").innerJoinAndSelect("user.role", "role").getOne();
+    async getUserWithRole(id: number): Promise<User | null> {
+        return await AppDataSource.createQueryBuilder(User, "user")
+            .innerJoinAndSelect("user.role", "role")
+            .where("userId = :userId", { userId: id })
+            .getOne();
     }
 
     async add(user: User): Promise<InsertResult> {
-        return await AppDataSource.createQueryBuilder().insert().into(User).values([user]).execute();
+        return await AppDataSource.createQueryBuilder()
+            .insert()
+            .into(User)
+            .values([user])
+            .execute();
     }
 
     async edit(id: number, user: User): Promise<UpdateResult> {
-        return await AppDataSource.createQueryBuilder().update(User).set(user).where("id = :id", { id: id }).execute();
+        return await AppDataSource.createQueryBuilder()
+            .update(User)
+            .set(user)
+            .where("id = :id", { id: id })
+            .execute();
     }
 
     async delete(id: number): Promise<DeleteResult> {
-        return await AppDataSource.createQueryBuilder().delete().from(User).where("id = :id", { id: id }).execute();
+        return await AppDataSource.createQueryBuilder()
+            .delete()
+            .from(User)
+            .where("id = :id", { id: id })
+            .execute();
     }
 }
 

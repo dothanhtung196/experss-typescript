@@ -37,3 +37,12 @@
 ``` sh
     npm run dev
 ```
+
+## 3. Api document (.env file) [ => Click to swagger.yml file](swagger.yml)
+#
+
+## 4. Log
+### clear all log
+``` sh
+    npm run clear-log
+```
