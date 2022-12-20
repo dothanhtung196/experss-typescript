@@ -1,0 +1,224 @@
+openapi: '3.0.2'
+info:
+  title: Api document
+  version: '1.0'
+servers:
+  - url: http://localhost:3000
+tags:
+  - name: authentications
+  - name: users
+paths:
+  /authentications/login:
+    post:
+      tags:
+        - authentications
+      requestBody:
+        description: Login request
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+  /authentications/refresh-token:
+    post:
+      tags:
+        - authentications
+      requestBody:
+        description: Refresh token request
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refreshToken:
+                  type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+  /authentications/logout:
+    post:
+      tags:
+        - authentications
+      requestBody:
+        description: Logout request
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refreshToken:
+                  type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+  /users:
+    get:
+      tags:
+        - users
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/user'
+    post:
+      tags:
+        - users
+      requestBody:
+        description: Add user
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                fullName:
+                  type: string
+                phone:
+                  type: string
+                email:
+                  type: string
+                address:
+                  type: string
+                lastLoginIp:
+                  type: string
+                lastLoginTime:
+                  type: string
+                  format: date-time
+                deleteFlag:
+                  type: boolean
+                createdBy:
+                  type: number
+                updatedBy:
+                  type: number
+      responses:
+        '200':
+          description: Ok
+
+  /users/{id}:
+    get:
+      tags:
+        - users
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+    put:
+      tags:
+        - users
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      requestBody:
+        description: user edit request
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: '#/components/schemas/user'
+      responses:
+        '200':
+          description: Ok
+    delete:
+      tags:
+        - users
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Ok
+security:
+  - bearerAuth: []
+components:
+  schemas:
+    user:
+      type: object
+      properties:
+        id:
+          type: number
+        username:
+          type: string
+        password:
+          type: string
+        fullName:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        address:
+          type: string
+        lastLoginIp:
+          type: string
+        lastLoginTime:
+          type: string
+          format: date-time
+        deleteFlag:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        createdBy:
+          type: number
+        updatedAt:
+          type: string
+          format: date-time
+        updatedBy:
+          type: number
+    responseModel:
+      type: object
+      properties:
+        status:
+          type: number
+        message:
+          type: string
+        data:
+          type: object
+        isError:
+          type: boolean
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

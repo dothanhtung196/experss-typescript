@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, ManyToMany, JoinTable, OneToMany, BeforeInsert, BeforeUpdate, BeforeRemove } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToMany, BeforeInsert, BeforeUpdate, BeforeRemove } from "typeorm";
 import { Menu } from "./menu";
 import { Permission } from "./permission";
 import { User } from "./User";

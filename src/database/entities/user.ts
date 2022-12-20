@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, CreateDateColumn, UpdateDateColumn, BeforeUpdate, BeforeInsert, BeforeRemove } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, BeforeUpdate, BeforeInsert, BeforeRemove } from "typeorm";
 import { Role } from "./role";
 
 @Entity()

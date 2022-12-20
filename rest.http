@@ -67,9 +67,7 @@ Content-Type: application/json
     "lastLoginIp": "123",
     "lastLoginTime": "2022-12-16 15:00:00",
     "deleteFlag": false,
-    "createdAt": "2022-12-16 15:00:00",
     "createdBy": 0,
-    "updatedAt": "2022-12-16 15:00:00",
     "updatedBy": 0
 }
 

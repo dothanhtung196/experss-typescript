@@ -9,14 +9,22 @@ class UserRepository {
     }
 
     async getById(id: number): Promise<User | null> {
-        return await AppDataSource.createQueryBuilder().select("user").from(User, "user").where("user.id = :id", { id: id }).getOne();
+        return await AppDataSource.createQueryBuilder()
+            .select("user")
+            .from(User, "user")
+            .where("user.id = :id", { id: id })
+            .getOne();
     }
 
     async getByUsername(username: string): Promise<User | null> {
-        return await AppDataSource.createQueryBuilder().select("user").from(User, "user").where("user.username = :username", { username: username }).getOne();
+        return await AppDataSource.createQueryBuilder()
+            .select("user")
+            .from(User, "user")
+            .where("user.username = :username", { username: username })
+            .getOne();
     }
 
-    async getRoleOfUser(userId: number): Promise<User | null> {
+    async getUserWithRole(userId: number): Promise<User | null> {
         return await AppDataSource.createQueryBuilder(User, "user").innerJoinAndSelect("user.role", "role").getOne();
     }
 

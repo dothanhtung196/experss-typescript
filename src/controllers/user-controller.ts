@@ -11,7 +11,7 @@ import userService from "../services/user-service";
 @Controller("users")
 export class UserController {
     @Get("")
-    @Use(RoleAuthorization(["Client"]))
+    @Use(RoleAuthorization(["Admin"]))
     @Use(Authentication)
     async getAll(req: Request, res: Response, next: NextFunction) {
         try {

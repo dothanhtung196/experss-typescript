@@ -16,8 +16,8 @@ class UserService {
         return await userRepository.getByUsername(username);
     }
 
-    async getRoleOfUser(userId: number): Promise<User | null> {
-        return await userRepository.getRoleOfUser(userId);
+    async getUserWithRole(userId: number): Promise<User | null> {
+        return await userRepository.getUserWithRole(userId);
     }
 
     async add(user: User): Promise<InsertResult> {

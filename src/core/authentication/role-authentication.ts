@@ -14,12 +14,14 @@ export const RoleAuthorization = (roles: Array<string>) => {
 
         try {
             let { userId } = jwtHelper.decode(token) as ClaimDefinition;
-            let user = await userService.getRoleOfUser(userId);
+            let user = await userService.getUserWithRole(userId);
 
-            if (roles.some(x => x == user?.role.code)) return next();
+            if (!user) return next(createHttpError.Unauthorized("User not exists in database."));
+
+            if (roles.some((x) => x == user?.role.code)) return next();
             else return next(createHttpError.Unauthorized("User don't have permission."));
         } catch (error) {
-            return next(error)
+            return next(error);
         }
-    }
-}
+    };
+};
