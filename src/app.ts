@@ -30,8 +30,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "../public")));
 
 if (!fs.existsSync("logs")) fs.mkdirSync("logs");
-if (!fs.existsSync("logs/database")) fs.mkdirSync("logs/database");
-if (!fs.existsSync("logs/request")) fs.mkdirSync("logs/request");
 
 // initial database
 AppDataSource.initialize()

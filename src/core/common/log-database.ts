@@ -15,6 +15,8 @@ export class LogDatabase implements Logger {
         let parametersStringBuilder = parameters ? `-- PARAMETERS: [${parameterMap}]` : "";
         let queryStringBuilder = `${query} ${parametersStringBuilder}`;
 
+        if (!fs.existsSync("logs/database")) fs.mkdirSync("logs/database");
+
         fs.appendFileSync(
             path.join(__dirname, `../../../logs/database/${moment().format("YYYYMMDD")}.log`),
             `${queryStringBuilder} \n`

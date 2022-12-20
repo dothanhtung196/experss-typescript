@@ -65,6 +65,14 @@ class JwtHelper {
             throw new Error(error);
         }
     }
+
+    getToken(headerField: string): string | "" {
+        let authHeader: string = headerField;
+        let bearerToken: Array<string> = authHeader.split(" ");
+        let token: string = bearerToken[1];
+        if (!token) return "";
+        return token;
+    }
 }
 
 export default new JwtHelper();

@@ -5,6 +5,9 @@ import path from "path";
 
 export const LogRequest = (req: Request, res: Response, next: NextFunction): void => {
     let logData: any = [moment().format("YYYY-MM-DD HH:mm:ss"), req.method, req.url, req.body];
+
+    if (!fs.existsSync("logs/request")) fs.mkdirSync("logs/request");
+
     fs.appendFileSync(
         path.join(__dirname, `../../../logs/request/${moment().format("YYYYMMDD")}.log`),
         `${JSON.stringify(logData)} \n`

@@ -29,7 +29,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/userObjectResponse'
+                type: object
+                properties:
+                  status:
+                    type: number
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    $ref: '#/components/schemas/user'
+                  isError:
+                    type: boolean
   /authentications/refresh-token:
     post:
       tags:
@@ -49,7 +59,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/userObjectResponse'
+                type: object
+                properties:
+                  status:
+                    type: number
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    $ref: '#/components/schemas/user'
+                  isError:
+                    type: boolean
   /authentications/logout:
     post:
       tags:
@@ -69,7 +89,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/userObjectResponse'
+                type: object
+                properties:
+                  status:
+                    type: number
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    $ref: '#/components/schemas/user'
+                  isError:
+                    type: boolean
   /users:
     get:
       tags:
@@ -80,9 +110,18 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/userArrayResponse'
+                type: object
+                properties:
+                  status:
+                    type: number
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/user'
+                  isError:
+                    type: boolean
     post:
       tags:
         - users
@@ -136,7 +175,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/userObjectResponse'
+                type: object
+                properties:
+                  status:
+                    type: number
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    $ref: '#/components/schemas/user'
+                  isError:
+                    type: boolean
     put:
       tags:
         - users
@@ -206,31 +255,6 @@ components:
           format: date-time
         updatedBy:
           type: number
-    userObjectResponse:
-      type: object
-      properties:
-        status:
-          type: number
-        message:
-          type: string
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/user'
-        isError:
-          type: boolean
-    userArrayResponse:
-      type: object
-      properties:
-        status:
-          type: number
-        message:
-          type: string
-        data:
-          type: object
-          $ref: '#/components/schemas/user'
-        isError:
-          type: boolean
   securitySchemes:
     bearerAuth:
       type: http

@@ -18,19 +18,11 @@ class StringHelper {
         try {
             var result = await bcrypt.compareSync(password, hash);
 
-        if (result) return result;
-        else return false;
+            if (result) return result;
+            else return false;
         } catch (error: any) {
             throw new Error(error);
         }
-    }
-
-    getToken(headerField: string): string | "" {
-        let authHeader: string = headerField;
-        let bearerToken: Array<string> = authHeader.split(" ");
-        let token: string = bearerToken[1];
-        if (!token) return "";
-        return token;
     }
 }
 

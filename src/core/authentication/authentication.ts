@@ -2,14 +2,13 @@ import { NextFunction, Request, Response } from "express";
 import createHttpError from "http-errors";
 import jwtHelper from "../common/jwt-helper";
 import redisHelper from "../common/redis-helper";
-import stringHelper from "../common/string-helper";
 import { ClaimDefinition } from "../types/claim-definition";
 
 export const Authentication = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     if (!req.headers["authorization"]) return next(createHttpError.Unauthorized());
 
-    let token = stringHelper.getToken(req.headers["authorization"]);
-    if(!token) return next(createHttpError.Unauthorized("Can not get token from header."));
+    let token = jwtHelper.getToken(req.headers["authorization"]);
+    if (!token) return next(createHttpError.Unauthorized("Can not get token from header."));
 
     try {
         await jwtHelper.verifyAccessToken(token);
@@ -20,7 +19,7 @@ export const Authentication = async (req: Request, res: Response, next: NextFunc
 
         if (accessTokenOld == token) {
             await redisHelper.removeData(`RefreshToken-${userId}`);
-        }else{
+        } else {
             await redisHelper.setDataExpired(`AccessTokenOld-${userId}`, token, 2592000);
         }
         next(error);
