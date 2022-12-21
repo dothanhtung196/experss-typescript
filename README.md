@@ -1,4 +1,11 @@
-## 1. Run product
+## 1. Install environment
+```
+    Install nodejs 18
+    Install mysql
+```
+
+## 2. Run product
+
 ### Reset project
 ``` sh
     npm run clean
@@ -22,7 +29,7 @@
     npm install
 ```
 
-## 2. Run development
+## 3. Run development
 ### Clean project
 ``` sh
     npm run clean
@@ -38,10 +45,10 @@
     npm run dev
 ```
 
-## 3. Api document (.env file) [ => Click to swagger.yml file](swagger.yml)
+## 4. Api document (.env file) [ => Click to swagger.yml file](swagger.yml)
 #
 
-## 4. Log
+## 5. Log
 ### clear all log
 ``` sh
     npm run clear-log

@@ -4,7 +4,7 @@ import moment from "moment";
 import path from "path";
 
 export const LogRequest = (req: Request, res: Response, next: NextFunction): void => {
-    let logData: any = [moment().format("YYYY-MM-DD HH:mm:ss"), req.method, req.url, req.body];
+    let logData: any = [moment().format("YYYY-MM-DD HH:mm:ss"), req.method, req.url, req.headers, req.body];
 
     if (!fs.existsSync("logs/request")) fs.mkdirSync("logs/request");
 
@@ -20,6 +20,3 @@ export const AutoClearLog = (time: number) => {
         console.log("aaaa")
     }, time);
 }
-
-
-// AutoClearLog(1000);

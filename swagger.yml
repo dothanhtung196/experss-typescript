@@ -21,8 +21,10 @@ paths:
               properties:
                 username:
                   type: string
+                  example: administrator
                 password:
                   type: string
+                  example: admin@123
       responses:
         '200':
           description: Ok
@@ -158,6 +160,9 @@ paths:
       responses:
         '200':
           description: Ok
+      security:
+        - bearerAuth: []
+
 
   /users/{id}:
     get:

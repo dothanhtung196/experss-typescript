@@ -12,9 +12,9 @@ import { AppDataSource, SeedData } from "./database/data-source";
 import { UserController } from "./controllers/user-controller";
 import { HomeController } from "./controllers/home-controller";
 import { AuthenticationController } from "./controllers/authentication-controller";
-import { RouteMap } from "./core/routes/route-map";
+import { RouteMap } from "./core/common/route-map";
 import { HandleError, HandleNotFound } from "./core/exception/global-error-handle";
-import { LogRequest } from "./core/common/log-helper";
+import { LogRequest } from "./core/common/logs-module";
 
 var app = express();
 dotenv.config();

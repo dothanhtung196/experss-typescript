@@ -101,3 +101,17 @@ Authorization: {{accessToken}}
 ###
 GET  {{baseUrl}} HTTP/1.1
 Authorization: Bearer 123456
+
+###
+POST {{baseUrl}}/upload HTTP/1.1
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"
+
+field-value
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="swagger.yml"
+
+< ./swagger.yml
+--WebAppBoundary--

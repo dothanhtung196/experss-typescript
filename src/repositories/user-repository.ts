@@ -27,7 +27,7 @@ class UserRepository {
     async getUserWithRole(id: number): Promise<User | null> {
         return await AppDataSource.createQueryBuilder(User, "user")
             .innerJoinAndSelect("user.role", "role")
-            .where("userId = :userId", { userId: id })
+            .where("user.id = :id", { id: id })
             .getOne();
     }
 
